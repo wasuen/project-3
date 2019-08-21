@@ -4,7 +4,8 @@ import './App.css';
 import { Route, Switch, withRouter } from 'react-router';
 import Login from './Login';
 import Register from './Register';
-import Header from './Navbar';
+import { routes } from './const/routes'
+import NavBar from './Navbar';
 
 const My404 = () =>{
   return (
@@ -86,7 +87,7 @@ class App extends Component {
   render() {
     return (
       <main>
-        <Header />
+        <NavBar routes={routes}/>
         <br/>
         <Switch>
           <Route exact path="/" render={(props) => <Login {...props} logIn={this.logIn} />} />

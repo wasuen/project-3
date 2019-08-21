@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { routes } from '../const/routes'
-import { NavLink } from 'react-router-dom'
 
 import { NavContainer,
          NavRow,
@@ -29,8 +28,8 @@ const NavBar = ({ routes = [] }) => {
   return (
     <NavContainer color={'white'}>
       <NavRow>
-        <NavLeft></NavLeft>
-        <NavMiddle> Cup of Sugar </NavMiddle>
+        <NavLeft> Cup of Sugar </NavLeft>
+        <NavMiddle></NavMiddle>
         <NavRight>
           {
             routes.map(route =>
