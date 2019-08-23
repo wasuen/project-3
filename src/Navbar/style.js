@@ -15,6 +15,7 @@ export const NavRow = styled.div`
   margin: 0 auto;
 `
 export const NavLeft = styled.div`
+  margin-left: 20px;
   width: 33.3333%;
 `
 
@@ -23,6 +24,7 @@ export const NavMiddle = styled.div`
 `
 
 export const NavRight = styled.div`
+  margin-right: 20px;
   width: 33.3333%;
   @media (max-width: 950px) {
     a {

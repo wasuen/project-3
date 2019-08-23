@@ -12,17 +12,8 @@ import { NavContainer,
          Overlay
  } from './style'
 
-const NavBar = ({ routes = [] }) => {
+const NavBar = ({ routes = [], logout }) => {
   const [ isOpen, setIsOpen ] = useState(false)
-
-  // // state = {
-  //   isOpen = false
-  // }
-
-  // const setIsOpen = (boolean) => 
-  // this.setState({
-  //     isOpen:boolean
-  // })
 
   console.log(isOpen);
   return (
@@ -32,8 +23,12 @@ const NavBar = ({ routes = [] }) => {
         <NavMiddle></NavMiddle>
         <NavRight>
           {
-            routes.map(route =>
-              <Link exact to={`/${route}`}>{route}</Link>
+            routes.map((route,i) =>{
+              return route === "logout"
+              ? <Link key={i} exact to={'/'} onClick={logout}>{route}</Link>
+              : <Link key={i} exact to={`/${route}`}>{route}</Link>
+
+            }
             )
           }
           <Hamburger setIsOpen={setIsOpen} isOpen={isOpen} />
@@ -41,8 +36,8 @@ const NavBar = ({ routes = [] }) => {
       </NavRow>
       <Overlay className={isOpen ? "show" : "hide"}>          
         {
-          routes.map(route =>
-            <Link exact to={`/${route}`}>{route}</Link>
+          routes.map((route, i) =>
+            <Link key={i} exact to={`/${route}`}>{route}</Link>
           )
         }</Overlay>
     </NavContainer>

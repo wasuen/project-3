@@ -17,6 +17,7 @@ class Login extends Component {
     e.preventDefault();
 
     const login = this.props.logIn(this.state);
+    console.log(this.state)
 
     login.then((data) => {
       if(data.status.message === 'Success'){
@@ -44,7 +45,7 @@ class Login extends Component {
               <Form.Input fluid icon='mail' iconPosition='left' placeholder='email' type='text' name='email' onChange={this.handleChange}/>
               password:
               <Form.Input fluid icon='lock' iconPosition='left' type='password' name='password' onChange={this.handleChange}/>
-              <Button fluid size='large' type='subit'>Login</Button><br/>
+              <Button fluid size='large' type='submit'>Login</Button><br/>
               <span>Or Sign in with Google {" "} </span>
                 <GoogleLogin
                     clientId="943884177518-5f139p2o3hsjsdsn0a2qm8rb6gt3aekf.apps.googleusercontent.com"

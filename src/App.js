@@ -3,7 +3,9 @@ import logo from './logo.svg';
 import './App.css';
 import { Route, Switch, withRouter } from 'react-router';
 import Login from './Login';
+import Home from './Home';
 import Register from './Register';
+import Profile from './Profile';
 import { routes } from './const/routes'
 import NavBar from './Navbar';
 
@@ -62,7 +64,7 @@ class App extends Component {
 
       const registerResponse = await fetch('http://localhost:8000/user/register', {
         method: 'POST',
-        credentials: 'include',// on every request we have to send the cookie
+        credentials: 'include',
         body: data,
         headers: {
           'enctype': 'multipart/form-data'
@@ -84,14 +86,33 @@ class App extends Component {
     }
   }
 
+  logout = async () => {
+    try {
+      const logoutResponse = await fetch(`http://localhost:8000/user/logout`, {
+        method: 'GET'
+      })
+      this.setState({
+        isLogged: false,
+        username: '',
+        email: '',
+        id: '',
+
+      })
+    } catch(err) {
+      console.log(err)
+    }
+  }
+
   render() {
     return (
       <main>
-        <NavBar routes={routes}/>
+        <NavBar routes={routes} logout={this.logout}/>
         <br/>
         <Switch>
-          <Route exact path="/" render={(props) => <Login {...props} logIn={this.logIn} />} />
+          <Route exact path="/" render={(props) => <Home {...props} home={this.home} />} />
+          <Route exact path="/login" render={(props) => <Login {...props} logIn={this.logIn} />} />
           <Route exact path="/register" render={(props) => <Register {...props} register={this.register} /> } />
+          <Route exact path="/profile" render={(props) =>  <Profile {...props} userInfo={this.state}/> } />
           <Route component={My404} />
         </Switch>
     </main>
