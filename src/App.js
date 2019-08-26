@@ -9,6 +9,8 @@ import { routes } from './const/routes'
 import NavBar from './Navbar';
 import CreateItem from './CreateItem'
 
+console.log(process.env)
+
 const My404 = () =>{
   return (
     <div>
