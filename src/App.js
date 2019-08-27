@@ -7,7 +7,6 @@ import Register from './Register';
 import Profile from './Profile';
 import { routes } from './const/routes'
 import NavBar from './Navbar';
-import CreateItem from './CreateItem'
 
 console.log(process.env)
 
@@ -28,6 +27,9 @@ class App extends Component {
     email: '',
     image: '',
     loading: true,
+    itemName: '',
+    address: '',
+    createdBy: ''
   }
 
 
@@ -47,6 +49,35 @@ class App extends Component {
 
 
       this.setState(() => {
+        return {
+          ...parsedResponse.data,
+          loading: false
+        }
+      })
+
+      return parsedResponse
+
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  createItem = async (data) => {
+    try {
+      console.log(data)
+      const createResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/item/create`, {
+        method: 'POST',
+        credentials: 'include',
+        body: data,
+        headers: {
+          'enctype': 'multipart/form-data'
+        }
+      })
+
+      const parsedResponse = await createResponse.json();
+
+
+      this.setState(() => { 
         return {
           ...parsedResponse.data,
           loading: false
@@ -114,8 +145,7 @@ class App extends Component {
           <Route exact path="/" render={(props) => <Home {...props} home={this.home} />} />
           <Route exact path="/login" render={(props) => <Login {...props} logIn={this.logIn} />} />
           <Route exact path="/register" render={(props) => <Register {...props} register={this.register} /> } />
-          <Route exact path="/profile" render={(props) =>  <Profile {...props} userInfo={this.state}/> } />
-          <Route exact path="/createitem" render={(props) =>  <CreateItem {...props} userInfo={this.state}/> } />
+          <Route exact path="/profile" render={(props) =>  <Profile {...props} userInfo={this.state} createItem={this.createItem}/> } />
           <Route component={My404} />
         </Switch>
     </main>
