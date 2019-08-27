@@ -5,14 +5,14 @@ Allows users to post items they want or need in a short time frame at a specific
 ### Wireframes
 
 ### Technologies Used
-JavaScript
-HTML5
-React
-SQL
-Sqlite (in development)
-Peewee
-Flask
-Python
-Semantic UI
+* JavaScript
+* HTML5
+* React
+* SQL
+* Sqlite (in development)
+* Peewee
+* Flask
+* Python
+* Semantic UI
 
 ### Check it out: https://flask-react-project2.herokuapp.com/
