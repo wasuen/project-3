@@ -3,8 +3,8 @@
 Allows users to post items they want or need in a short time frame at a specific location. This app will allow you to ask your neighbors for that cup of sugar when needed or help out any neighbors in your area.
 
 ### Wireframes
-!(/image/IMG_3826.jpg)
-!(/image/IMG_3827.jpg)
+![Screenshot](/images/IMG_3826.jpg)
+![Screenshot](/images/IMG_3827.jpg)
 
 ### Technologies Used
 * JavaScript
