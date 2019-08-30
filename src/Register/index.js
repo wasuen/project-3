@@ -11,24 +11,17 @@ class Register extends Component {
     }
 
   handleChange = (e) => {
-    if(e.target.name !== 'image'){
       this.setState({[e.target.name]: e.target.value});
-    } else {
-
-      console.log(e.target.files[0])
-      this.setState({image: e.target.files[0]});
     }
-  }
 
   handleSubmit = async (e) => {
     e.preventDefault();
 
     const data = new FormData();
-    data.append('file', this.state.image);
     data.append('username', this.state.username);
     data.append('password', this.state.password);
     data.append('email', this.state.email);
-
+    
     const registerCall = this.props.register(data);
 
     registerCall.then((data) => {

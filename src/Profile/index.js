@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Grid, Header, Button, Form, Segment, Item} from 'semantic-ui-react';
+import { Grid, Header, Button, Form, Segment} from 'semantic-ui-react';
 
 
 class Profile extends Component {
   state = {
      name: '',
-     address: ''
+     address: '',
     }
 
     handleChange = (e) => {
@@ -19,12 +19,17 @@ class Profile extends Component {
         const data = new FormData();
         data.append('name', this.state.name)
         data.append('address', this.state.address);
-        console.log('form', data)
+        data.append('user', this.props.userId)
+        
+        console.log(data, '<-----data', data.entries(), '<------data entries');
+        for (let pair of data.entries()){
+            console.log(pair[0], ',******** ', pair[1])
+        }
     
         const registerCall = this.props.createItem(data);
     
       registerCall.then((data) => {
-        console.log('call', data)
+        console.log('call', data, "THIS IS YOUR DATA!!!!!")
           if(data.status.message === "Success") {
           } else {
             console.log(data, ' this should have an error message? How could you display that on the screen')

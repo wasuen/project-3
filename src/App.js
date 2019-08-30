@@ -18,18 +18,14 @@ const My404 = () =>{
     )
 }
 
-
-
 class App extends Component {
   
   state = {
     username: '',
     email: '',
-    image: '',
     loading: true,
-    itemName: '',
-    address: '',
-    createdBy: ''
+    userId: 0,
+    isLoggedIn: false
   }
 
 
@@ -46,9 +42,40 @@ class App extends Component {
       })
 
       const parsedResponse = await loginResponse.json();
+      console.log(parsedResponse, '<----- parsedResponse')
 
 
       this.setState(() => {
+        return {
+          ...parsedResponse.data,
+          loading: false,
+          isLoggedIn: true,
+          userId: parsedResponse.data.id
+        }
+      })
+
+      return parsedResponse
+
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  createItem = async (data) => {
+    try {
+      const createResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/item/create`, {
+        method: 'POST',
+        credentials: 'include',
+        body: data,
+        headers: {
+          'enctype': 'multipart/form-data'
+        }
+      })
+
+      const parsedResponse = await createResponse.json();
+
+
+      this.setState(() => { 
         return {
           ...parsedResponse.data,
           loading: false
@@ -62,11 +89,10 @@ class App extends Component {
     }
   }
 
-  createItem = async (data) => {
+  showItem = async (data) => {
     try {
-      console.log(data)
-      const createResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/item/create`, {
-        method: 'POST',
+      const createResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/item/show`, {
+        method: 'GET',
         credentials: 'include',
         body: data,
         headers: {
@@ -125,27 +151,29 @@ class App extends Component {
         method: 'GET'
       })
       this.setState({
-        isLogged: false,
+        isLoggedIn: false,
         username: '',
         email: '',
         id: '',
 
       })
+
     } catch(err) {
       console.log(err)
     }
   }
 
   render() {
+    console.log(this.state)
     return (
       <main>
-        <NavBar routes={routes} logout={this.logout}/>
+        <NavBar routes={routes} isLoggedIn={this.state.isLoggedIn} logout={this.logout}/>
         <br/>
         <Switch>
           <Route exact path="/" render={(props) => <Home {...props} home={this.home} />} />
           <Route exact path="/login" render={(props) => <Login {...props} logIn={this.logIn} />} />
           <Route exact path="/register" render={(props) => <Register {...props} register={this.register} /> } />
-          <Route exact path="/profile" render={(props) =>  <Profile {...props} userInfo={this.state} createItem={this.createItem}/> } />
+          <Route exact path="/profile" render={(props) =>  <Profile {...props} userInfo={this.state} createItem={this.createItem} userId={this.state.userId} showItem={this.showItem} /> } />
           <Route component={My404} />
         </Switch>
     </main>

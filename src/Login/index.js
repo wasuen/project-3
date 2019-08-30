@@ -25,6 +25,7 @@ class Login extends Component {
       } else {
         console.log(data, this.props)
       }
+
     }).catch((err) => {
       console.log(err)
     })
@@ -33,6 +34,7 @@ class Login extends Component {
 
 
   render(){
+    console.log(this.state)
     return (
       <Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh'}}>
         <Grid.Column style={{maxWidth: 450}}>
