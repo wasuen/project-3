@@ -66,57 +66,22 @@ class App extends Component {
       const createResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/item/create`, {
         method: 'POST',
         credentials: 'include',
-        body: data,
+        // body: data,
+        body: JSON.stringify(data),
         headers: {
-          'enctype': 'multipart/form-data'
+          // 'enctype': 'multipart/form-data'
+          'Content-Type': 'application/json'
         }
       })
 
       const parsedResponse = await createResponse.json();
-
-
-      this.setState(() => { 
-        return {
-          ...parsedResponse.data,
-          loading: false
-        }
-      })
-
+      //conditional to see if item was successfully created
       return parsedResponse
 
     } catch (err) {
       console.log(err)
     }
   }
-
-  showItem = async (data) => {
-    try {
-      const createResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/item/show`, {
-        method: 'GET',
-        credentials: 'include',
-        body: data,
-        headers: {
-          'enctype': 'multipart/form-data'
-        }
-      })
-
-      const parsedResponse = await createResponse.json();
-
-
-      this.setState(() => { 
-        return {
-          ...parsedResponse.data,
-          loading: false
-        }
-      })
-
-      return parsedResponse
-
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
 
   register = async (data) => {
      try {
@@ -173,7 +138,7 @@ class App extends Component {
           <Route exact path="/" render={(props) => <Home {...props} home={this.home} />} />
           <Route exact path="/login" render={(props) => <Login {...props} logIn={this.logIn} />} />
           <Route exact path="/register" render={(props) => <Register {...props} register={this.register} /> } />
-          <Route exact path="/profile" render={(props) =>  <Profile {...props} userInfo={this.state} createItem={this.createItem} userId={this.state.userId} showItem={this.showItem} /> } />
+          <Route exact path="/profile" render={(props) =>  <Profile {...props} userInfo={this.state} createItem={this.createItem} userId={this.state.id} /> } />
           <Route component={My404} />
         </Switch>
     </main>
